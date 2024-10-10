@@ -5133,11 +5133,11 @@ export class Player extends HTMLDivElement {
 			next.resolve();
 		}
 		if (!next.filterSelect) next.filterSelect = function (num, index, event) {
-			if (event.terminal) return num + event.numbers.reduce((sum, num) => sum + num, 0) - (event.numbers[index] || 0) <= event.terminal;
+			if (typeof event.terminal == 'number') return num + event.numbers.reduce((sum, num) => sum + num, 0) - (event.numbers[index] || 0) <= event.terminal;
 			return true;
 		};
 		if (!next.filterOk) next.filterOk = function (event) {
-			if (event.terminal) return event.numbers.reduce((sum, num) => sum + num, 0) <= event.terminal;
+			if (typeof event.terminal == 'number') return event.numbers.reduce((sum, num) => sum + num, 0) <= event.terminal;
 			return true;
 		};
 		if (!next.forced) next.forced = false;
