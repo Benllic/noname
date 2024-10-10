@@ -69,7 +69,7 @@ export const Content = {
 						thisNum = item.min || 0;
 						event.numbers.splice(index, 1, thisNum);
 					}
-					if (event.terminal) var actual = event.terminal - event.numbers.reduce((sum, num) => sum + num, 0) + thisNum;
+					if (typeof event.terminal == 'number') var actual = event.terminal - event.numbers.reduce((sum, num) => sum + num, 0) + thisNum;
 					for (var num = item.min || 0; num <= Math.min((actual || max), max); num += item.base || 1) {
 						var option = document.createElement('option');
 						option.innerHTML = num;
