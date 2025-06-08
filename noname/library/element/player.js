@@ -5462,7 +5462,7 @@ export class Player extends HTMLDivElement {
 			if (typeof argument == "string") {
 				get.evtprompt(next, argument);
 			} else if (typeof argument == "number") {
-				next.terminal = argument;
+				next.optionSum = argument;
 			} else if (typeof argument == "boolean") {
 				next.forced = argument;
 			} else if (typeof argument == "object" && Array.isArray(argument)) {
@@ -5474,11 +5474,11 @@ export class Player extends HTMLDivElement {
 			next.resolve();
 		}
 		if (!next.filterSelect) {
-			if (next.terminal) next.filterSelect = (num, index, event) => num + event.numbers.reduce((sum, num) => sum + num, 0) - (event.numbers[index] || 0) <= event.terminal;
+			if (next.optionSum) next.filterSelect = (num, index, event) => num + event.numbers.reduce((sum, num) => sum + num, 0) - (event.numbers[index] || 0) <= event.optionSum;
 			else next.filterSelect = () => true;
 		}
 		if (!next.filterOk) {
-			if (next.terminal) next.filterOk = event => event.numbers.reduce((sum, num) => sum + num, 0) <= event.terminal;
+			if (next.optionSum) next.filterOk = event => event.numbers.reduce((sum, num) => sum + num, 0) <= event.optionSum;
 			else next.filterOk = () => true;
 		}
 		if (!next.forced) next.forced = false;
