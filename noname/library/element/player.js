@@ -5473,16 +5473,14 @@ export class Player extends HTMLDivElement {
 			_status.event.next.remove(next);
 			next.resolve();
 		}
-		if (!next.filterSelect)
-			next.filterSelect = function (num, index, event) {
-				if (event.terminal) return num + event.numbers.reduce((sum, num) => sum + num, 0) - (event.numbers[index] || 0) <= event.terminal;
-				return true;
-			};
-		if (!next.filterOk)
-			next.filterOk = function (event) {
-				if (event.terminal) return event.numbers.reduce((sum, num) => sum + num, 0) <= event.terminal;
-				return true;
-			};
+		if (!next.filterSelect) {
+			if (next.terminal) next.filterSelect = (num, index, event) => num + event.numbers.reduce((sum, num) => sum + num, 0) - (event.numbers[index] || 0) <= event.terminal;
+			else next.filterSelect = () => true;
+		}
+		if (!next.filterOk) {
+			if (next.terminal) next.filterOk = event => event.numbers.reduce((sum, num) => sum + num, 0) <= event.terminal;
+			else next.filterOk = () => true;
+		}
 		if (!next.forced) next.forced = false;
 		next.setContent("chooseNumbers");
 		next._args = Array.from(arguments);
